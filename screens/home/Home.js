@@ -15,12 +15,6 @@ export default function Home({ navigation }) {
       .filter(item => item.key.includes(searchValue)))
   }, [playlists]);
 
-  const addPlaylist = () => {
-    setPlaylists((prev) => {
-      return [...prev, { key: playlists.length.toString() }];
-    })
-  }
-
   const onChangeText = (value) => {
     setSearchValue(value);
     setFilteredPlaylists(playlists
@@ -29,25 +23,25 @@ export default function Home({ navigation }) {
 
   return (
     <View style={GlobalStyles.screenContainer}>
-      <View style={GlobalStyles.contentContainer}>
-        <Searchbar
-          style={GlobalStyles.searchbar}
-          placeholder="חפש..."
-          value={searchValue}
-          onChangeText={onChangeText}
-          inputStyle={{ fontSize: 26 }}
-        />
-        <HeeboText bold marginTop={30}>
-          בלהבלה
-      </HeeboText>
-        <Divider />
+      <Searchbar
+        style={GlobalStyles.searchbar}
+        placeholder="חפש..."
+        value={searchValue}
+        onChangeText={onChangeText}
+        inputStyle={{ fontSize: 26 }}
+      />
+      <View style={{ marginTop: 30, marginLeft: 50, }}>
+        <HeeboText bold size={28}>בלהבלה</HeeboText>
+      </View>
+      <Divider />
+      <View style={{ alignItems: 'center' }}>
         <FlatList
           data={filteredPlaylists}
-          numColumns={3}
+          numColumns={4}
           renderItem={({ item }) =>
             <TouchableOpacity style={styles.card} elevation={0}
               onPress={() => navigation.navigate('Playlist', { name: item.key })}>
-              <Image style={{ height: 60, width: 200 }} source={require('../../assets/images/switch.png')} />
+              <Image style={{ height: 40, width: 150 }} source={require('../../assets/images/switch.png')} />
               <HeeboText>
                 {item.key} </HeeboText>
             </TouchableOpacity>
@@ -56,7 +50,6 @@ export default function Home({ navigation }) {
       < FAB
         style={styles.fab}
         icon="plus"
-      // onPress={addPlaylist}
       />
     </View >
   );
@@ -70,8 +63,8 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   card: {
-    marginVertical: 60,
-    marginHorizontal: 22,
+    marginVertical: 40,
+    marginHorizontal: 20,
     alignItems: 'center'
   },
 })

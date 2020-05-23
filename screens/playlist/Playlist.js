@@ -17,12 +17,6 @@ export default function Playlist({ navigation, route }) {
             .filter(item => item.key.includes(searchValue)))
     }, [songs]);
 
-    const addPlaylist = () => {
-        setSongs((prev) => {
-            return [...prev, { key: songs.length.toString() }];
-        })
-    }
-
     const onChangeText = (value) => {
         setSearchValue(value);
         setFilteredSongs(songs
@@ -35,10 +29,10 @@ export default function Playlist({ navigation, route }) {
                 <View style={{ flexDirection: 'row' }}>
                     <IconButton
                         icon='chevron-right'
-                        size={40}
+                        size={35}
                         onPress={() => navigation.navigate('Home')}
                     />
-                    <HeeboText bold marginTop={15}>{route.params.name}</HeeboText>
+                    <HeeboText bold size={30} marginTop={10}>{route.params.name}</HeeboText>
                 </View>
                 <IconButton
                     icon='magnify'
@@ -46,7 +40,7 @@ export default function Playlist({ navigation, route }) {
                     onPress={() => setSearchbarVisible(true)}
                 />
             </View>}
-            <View style={GlobalStyles.contentContainer}>
+            <View style={{marginLeft:20}}>
                 {isSearchbarVisible && <Searchbar
                     icon='chevron-right'
                     onIconPress={() => setSearchbarVisible(false)}
@@ -54,18 +48,20 @@ export default function Playlist({ navigation, route }) {
                     placeholder="חפש..."
                     value={searchValue}
                     onChangeText={onChangeText}
-                    inputStyle={{ fontSize: 30, fontFamily: 'Heebo-Bold' }}
+                    inputStyle={{ fontSize: 25, fontFamily: 'Heebo' }}
+                    iconColor='black'
                 />}
                 <FlatList
                     data={filteredSongs}
                     renderItem={({ item }) =>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <Image style={{ height: 50, width: 150, marginLeft: 20, }} source={require('../../assets/images/switch.png')} />
                             <TouchableOpacity style={styles.card}
                                 onPress={() => navigation.navigate('Song', { name: item.key })}>
-                                <Card.Title title={item.key} titleStyle={{ fontSize: 26 }} subtitle={item.key} subtitleStyle={{ fontSize: 20 }} />
+                                <Image style={{ height: 30, width: 100, marginTop:20 }} source={require('../../assets/images/switch.png')} />
+                                <Card.Title title={item.key} titleStyle={{ fontSize: 22 }} subtitle={item.key} subtitleStyle={{ fontSize: 16 }} />
                             </TouchableOpacity>
                             <IconButton
+                                style={{marginRight:40}}
                                 icon='dots-horizontal'
                                 size={40}
                                 onPress={() => setSnackbarVisible(true)}
@@ -97,10 +93,8 @@ const styles = StyleSheet.create({
         bottom: 0,
     },
     card: {
-        marginVertical: 10,
-        marginLeft: 10,
-        marginRight: 10,
-        width: '65%',
-        height: 90,
+        marginBottom: 10,
+        flex: 1,
+        flexDirection: 'row'
     },
 })

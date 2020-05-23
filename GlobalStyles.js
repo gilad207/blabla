@@ -4,18 +4,16 @@ export const statusBarHeight = StatusBar.currentHeight;
 
 export const GlobalStyles = StyleSheet.create({
     searchbar: {
-        elevation: 0,
         borderRadius: 20,
-        marginTop: statusBarHeight * 2,
+        marginTop: 30,
         marginBottom: statusBarHeight,
         alignSelf: 'center',
-        height: 60,
+        height: 50,
+        width:'90%',
     },
-    contentContainer: {
-        width: '90%'
-    },
+
     screenContainer: {
-        flex: 1, alignItems: 'center', backgroundColor: 'white'
+        flex: 1, backgroundColor: 'white'
     }
 })
 
