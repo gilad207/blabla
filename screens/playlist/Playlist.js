@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import HeeboText from '../../components/HeeboText';
 import { DATA } from '../../assets/Data'
-import { Searchbar, Snackbar, Card, IconButton, FAB, Button } from 'react-native-paper'
+import { Searchbar, Snackbar, Card, IconButton, FAB, Button, Divider, Portal, Provider } from 'react-native-paper'
 import { FlatList, View, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { GlobalStyles } from '../../GlobalStyles'
+import Modal from 'react-native-modal';
 
 export default function Playlist({ navigation, route }) {
     const [searchValue, setSearchValue] = useState('');
@@ -11,6 +12,7 @@ export default function Playlist({ navigation, route }) {
     const [filteredSongs, setFilteredSongs] = useState(DATA)
     const [isSnackbarVisible, setSnackbarVisible] = useState(false);
     const [isSearchbarVisible, setSearchbarVisible] = useState(false);
+    const [isModalVisible, setModalVisible] = useState(false)
 
     useEffect(() => {
         setFilteredSongs(songs
@@ -24,7 +26,7 @@ export default function Playlist({ navigation, route }) {
     }
 
     return (
-        <View style={GlobalStyles.screenContainer}>
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
             {!isSearchbarVisible && <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '95%', marginVertical: 20, }}>
                 <View style={{ flexDirection: 'row' }}>
                     <IconButton
@@ -40,35 +42,44 @@ export default function Playlist({ navigation, route }) {
                     onPress={() => setSearchbarVisible(true)}
                 />
             </View>}
-            <View style={{marginLeft:20}}>
-                {isSearchbarVisible && <Searchbar
-                    icon='chevron-right'
-                    onIconPress={() => setSearchbarVisible(false)}
-                    style={GlobalStyles.searchbar}
-                    placeholder="חפש..."
-                    value={searchValue}
-                    onChangeText={onChangeText}
-                    inputStyle={{ fontSize: 25, fontFamily: 'Heebo' }}
-                    iconColor='black'
-                />}
-                <FlatList
-                    data={filteredSongs}
-                    renderItem={({ item }) =>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <TouchableOpacity style={styles.card}
-                                onPress={() => navigation.navigate('Song', { name: item.key })}>
-                                <Image style={{ height: 30, width: 100, marginTop:20 }} source={require('../../assets/images/switch.png')} />
-                                <Card.Title title={item.key} titleStyle={{ fontSize: 22 }} subtitle={item.key} subtitleStyle={{ fontSize: 16 }} />
-                            </TouchableOpacity>
-                            <IconButton
-                                style={{marginRight:40}}
-                                icon='dots-horizontal'
-                                size={40}
-                                onPress={() => setSnackbarVisible(true)}
-                            />
-                        </View>
-                    } />
+
+            {isSearchbarVisible && <Searchbar
+                icon='chevron-right'
+                onIconPress={() => setSearchbarVisible(false)}
+                style={GlobalStyles.searchbar}
+                placeholder="חפש..."
+                value={searchValue}
+                onChangeText={onChangeText}
+                inputStyle={{ fontSize: 25, fontFamily: 'Heebo' }}
+                iconColor='black'
+            />}
+
+            < FlatList
+                data={filteredSongs}
+                renderItem={({ item }) =>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, flex: 1 }}>
+                        <TouchableOpacity style={styles.card}
+                            onPress={() => navigation.navigate('Song', { name: item.key })}>
+                            <Image style={{ height: 30, width: 100, marginTop: 20 }} source={require('../../assets/images/switch.png')} />
+                            <Card.Title title={item.key} titleStyle={{ fontSize: 22 }} subtitle={item.key} subtitleStyle={{ fontSize: 16 }} />
+                        </TouchableOpacity>
+                        <IconButton
+                            style={{ marginRight: 40 }}
+                            icon='dots-horizontal'
+                            size={40}
+                            onPress={() => setModalVisible(true)}
+                        />
+
+                    </View>
+                } />
+            <View style={{}} >
+                <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+                    <View style={{ backgroundColor: 'white', height: 400, marginBottom: -40, borderTopStartRadius: 15, borderTopEndRadius: 15, padding: 30, width: 800 }}>
+                        <HeeboText>בלה</HeeboText>
+                    </View>
+                </Modal>
             </View>
+
             <FAB
                 style={styles.fab}
                 icon="plus"
@@ -86,6 +97,9 @@ export default function Playlist({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
+    menuOption: {
+        marginTop: 20,
+    },
     fab: {
         position: 'absolute',
         margin: 80,

@@ -1,15 +1,13 @@
-import { StatusBar, StyleSheet } from 'react-native'
-
-export const statusBarHeight = StatusBar.currentHeight;
+import { StyleSheet } from 'react-native'
 
 export const GlobalStyles = StyleSheet.create({
     searchbar: {
         borderRadius: 20,
         marginTop: 30,
-        marginBottom: statusBarHeight,
+        marginBottom: 25,
         alignSelf: 'center',
         height: 50,
-        width:'90%',
+        width: '90%',
     },
 
     screenContainer: {
