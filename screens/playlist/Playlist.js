@@ -26,7 +26,7 @@ export default function Playlist({ navigation, route }) {
     }
 
     return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={GlobalStyles.screenContainer}>
             {!isSearchbarVisible && <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '95%', marginVertical: 20, }}>
                 <View style={{ flexDirection: 'row' }}>
                     <IconButton
