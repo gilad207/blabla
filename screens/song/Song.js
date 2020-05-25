@@ -1,21 +1,14 @@
 import React, { useState } from 'react';
-import { statusBarHeight } from '../../GlobalStyles'
 import { Card, IconButton, Divider, Chip, List, DataTable } from 'react-native-paper';
-import { View, StyleSheet, ScrollView } from 'react-native'
+import { View, StyleSheet, Text, ScrollView } from 'react-native'
 import HeeboText from '../../components/HeeboText';
 import { DATA } from '../../assets/Data'
 import { FlatList } from 'react-native-gesture-handler';
 import { GlobalStyles } from '../../GlobalStyles'
 
 export default function Song({ route, navigation }) {
-    const [isListExpanded, setListExpanded] = useState('false')
-
-    const handleExpandList = () => {
-        setListExpanded(!isListExpanded);
-    }
-
     return (
-        <View style={GlobalStyles.screenContainer}>
+        <ScrollView style={GlobalStyles.screenContainer}>
             <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: '95%', marginTop: 20, }}>
                 <IconButton
                     icon='chevron-right'
@@ -26,7 +19,7 @@ export default function Song({ route, navigation }) {
             </View>
             <View style={styles.section}>
                 <View>
-                    <HeeboText bold size={22}>בלהבלה1</HeeboText>
+                    <Text style={styles.sectionTitle}>בלהבלה1</Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <View>
@@ -54,7 +47,7 @@ export default function Song({ route, navigation }) {
 
             <View style={styles.section}>
                 <View>
-                    <HeeboText bold size={22}>בלהבלה4</HeeboText>
+                    <Text style={styles.sectionTitle}>בלהבלה4</Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
                     <View>
@@ -80,7 +73,7 @@ export default function Song({ route, navigation }) {
 
             <View style={styles.section}>
                 <View>
-                    <HeeboText size={22}>בלהבלה5</HeeboText>
+                    <Text style={{ fontSize: 22 }}>בלהבלה5</Text>
                 </View>
                 <FlatList
                     style={{ marginTop: 5 }}
@@ -96,32 +89,30 @@ export default function Song({ route, navigation }) {
 
             <Divider style={styles.divider} />
 
-            <View style={{ marginLeft: 30, marginTop: 20 }}>
-                <List.Accordion style={{ width: '95%', }}
-                    title="בלהבלה6"
-                    titleStyle={{ fontFamily: 'Heebo-Bold', fontSize: 24, color: 'black' }}
-                    left={props => <List.Icon icon="key" />}
-                    expanded={isListExpanded}
-                    onPress={handleExpandList}>
-                    <DataTable style={{ height: 400, marginLeft: -30 }}>
-                        <FlatList
-                            style={{ marginTop: 5 }}
-                            data={DATA}
-                            renderItem={({ item }) =>
-                                <DataTable.Row>
-                                    <DataTable.Cell style={{ marginHorizontal: 0, }}>
-                                        <HeeboText size={20}>{item.key}</HeeboText>
-                                    </DataTable.Cell>
-                                    <DataTable.Cell >
-                                        <HeeboText size={20}>01.01.2020 - 01.01.2021</HeeboText>
-                                    </DataTable.Cell>
-                                    <DataTable.Cell numeric>
-                                        <HeeboText bold size={20}>זמין להורדה</HeeboText>
-                                    </DataTable.Cell>
-                                </DataTable.Row>
-                            } />
-                    </DataTable>
-                </List.Accordion>
+            <View style={styles.section}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
+                    <Text style={styles.sectionTitle}>בלהבלה6</Text>
+                </View>
+                <FlatList
+                    style={{ marginTop: 5 }}
+                    data={DATA}
+                    renderItem={({ item }) =>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <View style={{ width: '15%' }}>
+                                <Text style={styles.smallText}>{item.key}</Text>
+                            </View>
+                            <View>
+                                <Text style={styles.smallText}>01.01.2020 - 01.01.2021</Text>
+                            </View>
+                            <View>
+                                <Text style={styles.boldSmallText}>זמין להורדה</Text>
+                            </View>
+                            <View>
+                                <IconButton icon='dots-horizontal' size={26} />
+                            </View>
+                            <Divider />
+                        </View>
+                    } />
             </View>
 
             <Divider style={styles.divider} />
@@ -130,13 +121,25 @@ export default function Song({ route, navigation }) {
                 <View>
                     <HeeboText bold size={24}>רשת</HeeboText>
                 </View>
-            </View>
 
-        </View>
+            </View>
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
+    boldSmallText: {
+        fontFamily: 'Heebo-Bold',
+        fontSize: 20
+    },
+    smallText: {
+        fontFamily: 'Heebo',
+        fontSize: 20,
+    },
+    sectionTitle: {
+        fontFamily: 'Heebo-Bold',
+        fontSize: 26,
+    },
     divider: {
         marginTop: 35,
     },
