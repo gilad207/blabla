@@ -7,15 +7,26 @@ import { FlatList } from 'react-native-gesture-handler';
 import { GlobalStyles } from '../../GlobalStyles'
 
 export default function Song({ route, navigation }) {
+
+    const downloadAvailable = 'זמין להורדה';
+
     return (
-        <ScrollView style={GlobalStyles.screenContainer}>
-            <View style={{ flexDirection: 'row', justifyContent: 'flex-start', width: '95%', marginTop: 20, }}>
+        <View style={GlobalStyles.screenContainer}>
+            <View style={GlobalStyles.header}>
+                <View style={{ flexDirection: 'row' }}>
+                    <IconButton
+                        icon='chevron-right'
+                        size={35}
+                        onPress={() => navigation.goBack()}
+                    />
+                    <HeeboText bold size={30} marginTop={10}>{route.params.name}</HeeboText>
+                </View>
                 <IconButton
-                    icon='chevron-right'
-                    size={35}
-                    onPress={() => navigation.navigate('Playlist')}
+                    style={{ marginRight: 40 }}
+                    icon='graphql'
+                    size={40}
+                    onPress={() => navigation.navigate('Related', { name: route.params.name })}
                 />
-                <HeeboText bold size={30} marginTop={10}>{route.params.name}</HeeboText>
             </View>
             <View style={styles.section}>
                 <View>
@@ -94,36 +105,27 @@ export default function Song({ route, navigation }) {
                     <Text style={styles.sectionTitle}>בלהבלה6</Text>
                 </View>
                 <FlatList
-                    style={{ marginTop: 5 }}
+                    style={{ marginTop: 5, height: 510 }}
                     data={DATA}
                     renderItem={({ item }) =>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
                             <View style={{ width: '15%' }}>
                                 <Text style={styles.smallText}>{item.key}</Text>
                             </View>
-                            <View>
+                            <View style={{ width: '30%', alignSelf: 'center', }}>
                                 <Text style={styles.smallText}>01.01.2020 - 01.01.2021</Text>
                             </View>
-                            <View>
-                                <Text style={styles.boldSmallText}>זמין להורדה</Text>
+                            <View style={{ width: '15%', height: 40, alignSelf: 'flex-end' }}>
+                                <Text style={styles.boldSmallText}>{item.availability}</Text>
                             </View>
                             <View>
-                                <IconButton icon='dots-horizontal' size={26} />
+                                {item.availability == downloadAvailable && <IconButton icon='download' size={26} />}
                             </View>
                             <Divider />
                         </View>
                     } />
             </View>
-
-            <Divider style={styles.divider} />
-
-            <View style={styles.section}>
-                <View>
-                    <HeeboText bold size={24}>רשת</HeeboText>
-                </View>
-
-            </View>
-        </ScrollView>
+        </View>
     )
 }
 

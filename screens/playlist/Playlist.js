@@ -32,12 +32,6 @@ export default function Playlist({ navigation, route }) {
         setModalVisible(true);
     }
 
-    const handleDownload = () => {
-        downloadFile("https://www.w3schools.com/howto/img_forest.jpg", 'blabla')
-        setSnackbarVisible(true);
-        setModalVisible(false);
-    }
-
     const downloadFile = (url, fileName) => {
 
         // const { config, fs } = RNFetchBlob;
@@ -53,18 +47,25 @@ export default function Playlist({ navigation, route }) {
         //     .fetch('GET', url);
     }
 
+    const handleDownload = () => {
+        downloadFile("https://www.w3schools.com/howto/img_forest.jpg", 'blabla')
+        setSnackbarVisible(true);
+        setModalVisible(false);
+    }
+
     return (
         <View style={GlobalStyles.screenContainer}>
-            {!isSearchbarVisible && <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '95%', marginVertical: 20, }}>
+            {!isSearchbarVisible && <View style={GlobalStyles.header}>
                 <View style={{ flexDirection: 'row' }}>
                     <IconButton
                         icon='chevron-right'
                         size={35}
-                        onPress={() => navigation.navigate('Home')}
+                        onPress={() => navigation.goBack()}
                     />
                     <HeeboText bold size={30} marginTop={10}>{route.params.name}</HeeboText>
                 </View>
                 <IconButton
+                    style={{ marginRight: 40 }}
                     icon='magnify'
                     size={40}
                     onPress={() => setSearchbarVisible(true)}
@@ -100,42 +101,40 @@ export default function Playlist({ navigation, route }) {
 
                     </View>
                 } />
-            <View style={{}} >
-                <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
-                    <View style={{ backgroundColor: 'white', height: 490, marginBottom: -40, borderTopStartRadius: 15, borderTopEndRadius: 15, padding: 30, width: 800 }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 30 }}>
-                            <Image style={{ height: 30, width: 80 }} source={require('../../assets/images/switch.png')} />
-                            <Text style={{ fontSize: 22, marginTop: 0, marginLeft: 10 }}>{modalTitle}</Text>
-                        </View>
-                        <Divider style={styles.divider} />
-                        <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={handleDownload}>
-                            <IconButton icon='cloud-download' size={40} />
-                            <Text style={styles.optionText}>בלה1</Text>
-                        </TouchableOpacity>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <IconButton icon='cloud-upload' size={40} />
-                            <Text style={styles.optionText}>בלה2</Text>
-                        </View>
-                        <Divider style={styles.divider} />
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <IconButton icon='lead-pencil' size={40} />
-                            <Text style={styles.optionText}>בלה3</Text>
-                        </View>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <IconButton icon='share' size={40} />
-                            <Text style={styles.optionText}>בלה4</Text>
-                        </View>
-                        <Divider style={styles.divider} />
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            <IconButton icon='history' size={40} />
-                            <Text style={styles.optionText}>בלה5</Text>
-                        </View>
+            <Modal isVisible={isModalVisible} onBackdropPress={() => setModalVisible(false)} style={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+                <View style={{ backgroundColor: 'white', height: 490, marginBottom: -40, borderTopStartRadius: 15, borderTopEndRadius: 15, padding: 30, width: 800 }}>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 30 }}>
+                        <Image style={{ height: 30, width: 80 }} source={require('../../assets/images/switch.png')} />
+                        <Text style={{ fontSize: 22, marginTop: 0, marginLeft: 10 }}>{modalTitle}</Text>
                     </View>
-                </Modal>
-            </View>
+                    <Divider style={styles.divider} />
+                    <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center' }} onPress={handleDownload}>
+                        <IconButton icon='cloud-download' size={40} />
+                        <Text style={styles.optionText}>בלה1</Text>
+                    </TouchableOpacity>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <IconButton icon='cloud-upload' size={40} />
+                        <Text style={styles.optionText}>בלה2</Text>
+                    </View>
+                    <Divider style={styles.divider} />
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <IconButton icon='lead-pencil' size={40} />
+                        <Text style={styles.optionText}>בלה3</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <IconButton icon='share' size={40} />
+                        <Text style={styles.optionText}>בלה4</Text>
+                    </View>
+                    <Divider style={styles.divider} />
+                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                        <IconButton icon='history' size={40} />
+                        <Text style={styles.optionText}>בלה5</Text>
+                    </View>
+                </View>
+            </Modal>
 
             <FAB
-                style={styles.fab}
+                style={GlobalStyles.fab}
                 icon="plus"
             />
             <Snackbar
@@ -163,12 +162,6 @@ const styles = StyleSheet.create({
     },
     menuOption: {
         marginTop: 20,
-    },
-    fab: {
-        position: 'absolute',
-        margin: 80,
-        right: 0,
-        bottom: 0,
     },
     card: {
         marginBottom: 10,

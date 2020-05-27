@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Song from '../screens/song/Song';
 import Playlist from '../screens/playlist/Playlist';
 import Home from '../screens/home/Home';
+import Related from '../screens/related/Related';
 
 const Stack = createStackNavigator();
 
@@ -14,6 +15,7 @@ export default function AppContainer() {
         <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
         <Stack.Screen name="Playlist" component={Playlist} options={{ headerShown: false }} />
         <Stack.Screen name="Song" component={Song} options={{ headerShown: false }} />
+        <Stack.Screen name="Related" component={Related} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

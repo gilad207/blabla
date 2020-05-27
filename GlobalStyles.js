@@ -12,6 +12,19 @@ export const GlobalStyles = StyleSheet.create({
 
     screenContainer: {
         flex: 1, backgroundColor: 'white'
-    }
+    },
+
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginVertical: 20,
+    },
+
+    fab: {
+        position: 'absolute',
+        margin: 75,
+        right: 0,
+        bottom: 0,
+    },
 })
 

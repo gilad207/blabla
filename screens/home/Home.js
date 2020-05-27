@@ -48,7 +48,7 @@ export default function Home({ navigation }) {
           } />
       </View>
       < FAB
-        style={styles.fab}
+        style={GlobalStyles.fab}
         icon="plus"
       />
     </View >
@@ -56,12 +56,6 @@ export default function Home({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  fab: {
-    position: 'absolute',
-    margin: 75,
-    right: 0,
-    bottom: 0,
-  },
   card: {
     marginVertical: 40,
     marginHorizontal: 20,
