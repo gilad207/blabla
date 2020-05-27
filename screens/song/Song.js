@@ -108,18 +108,20 @@ export default function Song({ route, navigation }) {
                     style={{ marginTop: 5, height: 510 }}
                     data={DATA}
                     renderItem={({ item }) =>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <View style={{ width: '15%' }}>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            <View style={{ width: '20%' }}>
                                 <Text style={styles.smallText}>{item.key}</Text>
                             </View>
-                            <View style={{ width: '30%', alignSelf: 'center', }}>
+                            <View style={{ width: '40%', alignItems:'center'}}>
                                 <Text style={styles.smallText}>01.01.2020 - 01.01.2021</Text>
                             </View>
-                            <View style={{ width: '15%', height: 40, alignSelf: 'flex-end' }}>
+                            <View style={{ height: '20%', width:150 }}>
                                 <Text style={styles.boldSmallText}>{item.availability}</Text>
                             </View>
-                            <View>
-                                {item.availability == downloadAvailable && <IconButton icon='download' size={26} />}
+                            <View style={{ height: 40, justifyContent:'flex-end' }}>
+                                {item.availability == downloadAvailable
+                                ? <IconButton icon='download' size={26}/> 
+                                : <IconButton icon='upload' size={26}/>}
                             </View>
                             <Divider />
                         </View>
@@ -132,7 +134,7 @@ export default function Song({ route, navigation }) {
 const styles = StyleSheet.create({
     boldSmallText: {
         fontFamily: 'Heebo-Bold',
-        fontSize: 20
+        fontSize: 20,
     },
     smallText: {
         fontFamily: 'Heebo',
